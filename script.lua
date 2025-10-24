@@ -80,7 +80,7 @@ Frame.Position = UDim2.new(1.02597404, 0, 0, 0)
 Frame.Size = UDim2.new(0.640084982, 0, 1, 0)
 
 Console.Name = "Console"
-Console.Parent = game.StarterGui.MainGui.Main.Frame.LocalScript
+Console.Parent = Main.Frame.LocalScript
 Console.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Console.BackgroundTransparency = 1.000
 Console.BorderColor3 = Color3.fromRGB(0, 0, 0)
