@@ -12,8 +12,9 @@ local Fires = Instance.new("TextButton")
 local Box = Instance.new("TextBox")
 local TextLabel = Instance.new("TextLabel")
 local LocalScript = Instance.new("LocalScript")
+local UiDragDetector = Instance.new("UIDragDetector")
 
---Properties:
+-- Properties:
 MainGui.Name = "MainGui"
 MainGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 MainGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -25,6 +26,8 @@ Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BorderSizePixel = 0
 Main.Position = UDim2.new(0.35, 0, 0.27, 0)
 Main.Size = UDim2.new(0.3, 0, 0.45, 0)
+
+UiDragDetector.Parent = Main
 
 RemoteSelected.Name = "RemoteSelected"
 RemoteSelected.Parent = Main
@@ -94,97 +97,101 @@ ButtonRemoter.Text = "Oldest"
 ButtonRemoter.TextColor3 = Color3.fromRGB(255, 255, 255)
 ButtonRemoter.TextScaled = true
 ButtonRemoter.TextWrapped = true
-ButtonRemoter.Visible = false -- Hidden template
+ButtonRemoter.Visible = false -- hidden template for clone
 
--- LocalScript (Fixed)
+-- LocalScript:
 LocalScript.Parent = Main
 
-LocalScript.Source = [[
-	local rep = game:GetService("ReplicatedStorage")
+-- Logic:
+LocalScript.Name = "GuiLogic"
 
-	local parentUI = script.Parent
-	local Scrolling = parentUI:WaitForChild("ScrollingFrame")
-	local RemoteCountLabel = parentUI:WaitForChild("RemoteSelected")
-	local FireAllButton = parentUI:WaitForChild("Fires")
-	local BTN = parentUI:WaitForChild("ButtonRemoter")
-	local Box = parentUI:WaitForChild("Box")
+local rep = game:GetService("ReplicatedStorage")
 
-	local remotes = {}
-	local db = false
-	local scripts = ""
+local parentUI = Main
+local Scrolling = parentUI:WaitForChild("ScrollingFrame")
+local RemoteCountLabel = parentUI:WaitForChild("RemoteSelected")
+local FireAllButton = parentUI:WaitForChild("Fires")
+local BTN = parentUI:WaitForChild("ButtonRemoter")
+local Box = parentUI:WaitForChild("Box")
 
-	local function safeFire(remote)
-		local ok = pcall(function()
-			if remote:IsA("RemoteEvent") then
-				remote:FireServer(scripts)
-			elseif remote:IsA("RemoteFunction") then
-				remote:InvokeServer(scripts)
-			end
+local remotes = {}
+local db = false
+local scripts = ""
+
+-- safeFire function
+local function safeFire(remote)
+	local ok = pcall(function()
+		if remote:IsA("RemoteEvent") then
+			remote:FireServer(scripts)
+		elseif remote:IsA("RemoteFunction") then
+			remote:InvokeServer(scripts)
+		end
+	end)
+	return ok
+end
+
+-- Build buttons for all remotes
+for i, v in pairs(rep:GetDescendants()) do
+	if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then
+		table.insert(remotes, v)
+		local clone = BTN:Clone()
+		clone.Parent = Scrolling
+		clone.Visible = true
+		clone.Text = i .. ". " .. v.Name
+
+		clone.MouseEnter:Connect(function()
+			clone.Text = v:GetFullName()
 		end)
-		return ok
-	end
 
-	-- Build buttons
-	for i, v in pairs(rep:GetDescendants()) do
-		if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then
-			table.insert(remotes, v)
-			local clone = BTN:Clone()
-			clone.Parent = Scrolling
-			clone.Visible = true
+		clone.MouseLeave:Connect(function()
 			clone.Text = i .. ". " .. v.Name
+		end)
 
-			clone.MouseEnter:Connect(function()
-				clone.Text = v:GetFullName()
-			end)
+		clone.MouseButton1Click:Connect(function()
+			safeFire(v)
+			clone.Text = "[FIRED] " .. v.Name
+			task.wait(0.4)
+			clone.Text = i .. ". " .. v.Name
+		end)
+	end
+end
 
-			clone.MouseLeave:Connect(function()
-				clone.Text = i .. ". " .. v.Name
-			end)
+RemoteCountLabel.Text = ("Remotes: %d"):format(#remotes)
 
-			clone.MouseButton1Click:Connect(function()
-				safeFire(v)
-				clone.Text = "[FIRED] " .. v.Name
-				task.wait(0.4)
-				clone.Text = i .. ". " .. v.Name
-			end)
+-- Fire all remotes
+FireAllButton.MouseButton1Click:Connect(function()
+	if db then return end
+	db = true
+
+	local fires, success, fail = 0, 0, 0
+	local alreadyfires = {}
+
+	for i, remote in ipairs(remotes) do
+		if table.find(alreadyfires, remote.Name) then continue end
+		table.insert(alreadyfires, remote.Name)
+		fires += 1
+		FireAllButton.Text = ("Firing [%d/%d]"):format(fires, #remotes)
+
+		if safeFire(remote) then
+			success += 1
+		else
+			fail += 1
 		end
+
+		task.wait(i / 5)
 	end
 
-	RemoteCountLabel.Text = ("Remotes: %d"):format(#remotes)
+	table.clear(alreadyfires)
+	FireAllButton.Text = ("Done ✅ [%d success / %d fail]"):format(success, fail)
+	task.wait(1.5)
+	FireAllButton.Text = "Fires All"
 
-	FireAllButton.MouseButton1Click:Connect(function()
-		if db then return end
-		db = true
+	db = false
+end)
 
-		local fires, success, fail = 0, 0, 0
-		local alreadyfires = {}
-
-		for i, remote in ipairs(remotes) do
-			if table.find(alreadyfires, remote.Name) then continue end
-			table.insert(alreadyfires, remote.Name)
-			fires += 1
-			FireAllButton.Text = ("Firing [%d/%d]"):format(fires, #remotes)
-
-			if safeFire(remote) then
-				success += 1
-			else
-				fail += 1
-			end
-
-			task.wait(i / 5)
-		end
-
-		table.clear(alreadyfires)
-		FireAllButton.Text = ("Done ✅ [%d success / %d fail]"):format(success, fail)
-		task.wait(1.5)
-		FireAllButton.Text = "Fires All"
-
-		db = false
-	end)
-
-	Box.FocusLost:Connect(function(enterPressed)
-		if enterPressed then
-			scripts = Box.Text
-		end
-	end)
-]]
+-- Box input handler
+Box.FocusLost:Connect(function(enterPressed)
+	if enterPressed then
+		scripts = Box.Text
+	end
+end)
