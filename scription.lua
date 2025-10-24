@@ -1,8 +1,7 @@
--- Gui to Lua
+-- Gui to Lua (Fixed)
 -- Version: 3.2
 
 -- Instances:
-
 local MainGui = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local ButtonRemoter = Instance.new("TextButton")
@@ -12,9 +11,9 @@ local UIListLayout = Instance.new("UIListLayout")
 local Fires = Instance.new("TextButton")
 local Box = Instance.new("TextBox")
 local TextLabel = Instance.new("TextLabel")
+local LocalScript = Instance.new("LocalScript")
 
 --Properties:
-
 MainGui.Name = "MainGui"
 MainGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 MainGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -23,100 +22,97 @@ MainGui.ResetOnSpawn = false
 Main.Name = "Main"
 Main.Parent = MainGui
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Main.BorderSizePixel = 0
-Main.Position = UDim2.new(0.350800812, 0, 0.274741083, 0)
-Main.Size = UDim2.new(0.297701925, 0, 0.450230151, 0)
+Main.Position = UDim2.new(0.35, 0, 0.27, 0)
+Main.Size = UDim2.new(0.3, 0, 0.45, 0)
 
 RemoteSelected.Name = "RemoteSelected"
 RemoteSelected.Parent = Main
 RemoteSelected.BackgroundColor3 = Color3.fromRGB(92, 101, 124)
-RemoteSelected.BorderColor3 = Color3.fromRGB(0, 0, 0)
 RemoteSelected.BorderSizePixel = 0
-RemoteSelected.Position = UDim2.new(0.615834713, 0, 0.0250248034, 0)
-RemoteSelected.Size = UDim2.new(0.358828664, 0, 0.0801393762, 0)
+RemoteSelected.Position = UDim2.new(0.62, 0, 0.03, 0)
+RemoteSelected.Size = UDim2.new(0.36, 0, 0.08, 0)
 RemoteSelected.Font = Enum.Font.SourceSansBold
 RemoteSelected.Text = "[NONE]"
 RemoteSelected.TextColor3 = Color3.fromRGB(255, 255, 255)
 RemoteSelected.TextScaled = true
-RemoteSelected.TextSize = 14.000
 RemoteSelected.TextWrapped = true
 
 ScrollingFrame.Parent = Main
 ScrollingFrame.Active = true
 ScrollingFrame.BackgroundColor3 = Color3.fromRGB(92, 101, 124)
-ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ScrollingFrame.BorderSizePixel = 0
-ScrollingFrame.Position = UDim2.new(0.0421806462, 0, 0.0278745405, 0)
-ScrollingFrame.Size = UDim2.new(0.53917098, 0, 0.83155036, 0)
-
+ScrollingFrame.Position = UDim2.new(0.04, 0, 0.03, 0)
+ScrollingFrame.Size = UDim2.new(0.54, 0, 0.83, 0)
 UIListLayout.Parent = ScrollingFrame
 
 Fires.Name = "Fires"
 Fires.Parent = Main
 Fires.BackgroundColor3 = Color3.fromRGB(81, 89, 109)
-Fires.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Fires.BorderSizePixel = 0
-Fires.Position = UDim2.new(0.615834713, 0, 0.884984016, 0)
-Fires.Size = UDim2.new(0.358828783, 0, 0.0830670893, 0)
+Fires.Position = UDim2.new(0.62, 0, 0.88, 0)
+Fires.Size = UDim2.new(0.36, 0, 0.08, 0)
 Fires.Font = Enum.Font.SourceSansBold
 Fires.Text = "Fires All"
 Fires.TextColor3 = Color3.fromRGB(255, 255, 255)
 Fires.TextScaled = true
-Fires.TextSize = 14.000
 Fires.TextWrapped = true
 
 Box.Name = "Box"
 Box.Parent = Main
 Box.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
-Box.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Box.BorderSizePixel = 0
-Box.Position = UDim2.new(0.0906432718, 0, 0.891373813, 0)
-Box.Size = UDim2.new(0.490708381, 0, 0.0766773149, 0)
+Box.Position = UDim2.new(0.09, 0, 0.89, 0)
+Box.Size = UDim2.new(0.49, 0, 0.08, 0)
 Box.ClearTextOnFocus = false
 Box.Font = Enum.Font.SourceSansBold
 Box.PlaceholderText = "require().blah(urname) or code"
 Box.Text = ""
 Box.TextColor3 = Color3.fromRGB(255, 255, 255)
 Box.TextScaled = true
-Box.TextSize = 14.000
 Box.TextWrapped = true
 Box.TextXAlignment = Enum.TextXAlignment.Left
 
 TextLabel.Parent = Main
 TextLabel.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
-TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(0.0497076027, 0, 0.891373813, 0)
-TextLabel.Size = UDim2.new(0.0409356728, 0, 0.0766773149, 0)
+TextLabel.Position = UDim2.new(0.05, 0, 0.89, 0)
+TextLabel.Size = UDim2.new(0.04, 0, 0.08, 0)
 TextLabel.Font = Enum.Font.SourceSansBold
 TextLabel.Text = ">"
 TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel.TextScaled = true
-TextLabel.TextSize = 14.000
 TextLabel.TextWrapped = true
 
--- Scripts:
+ButtonRemoter.Name = "ButtonRemoter"
+ButtonRemoter.Parent = Main
+ButtonRemoter.BackgroundColor3 = Color3.fromRGB(70, 77, 94)
+ButtonRemoter.BorderSizePixel = 0
+ButtonRemoter.Size = UDim2.new(0.94, 0, 0.05, 0)
+ButtonRemoter.Font = Enum.Font.SourceSansBold
+ButtonRemoter.Text = "Oldest"
+ButtonRemoter.TextColor3 = Color3.fromRGB(255, 255, 255)
+ButtonRemoter.TextScaled = true
+ButtonRemoter.TextWrapped = true
+ButtonRemoter.Visible = false -- Hidden template
 
-local scriptfile
+-- LocalScript (Fixed)
+LocalScript.Parent = Main
 
-local function JPZV_fake_script() -- Main.LocalScript 
-	scriptfile = Instance.new('LocalScript', Main)
-
+LocalScript.Source = [[
 	local rep = game:GetService("ReplicatedStorage")
-	
-	local BTN = script:WaitForChild("ButtonRemoter")
+
 	local parentUI = script.Parent
 	local Scrolling = parentUI:WaitForChild("ScrollingFrame")
 	local RemoteCountLabel = parentUI:WaitForChild("RemoteSelected")
 	local FireAllButton = parentUI:WaitForChild("Fires")
-	
+	local BTN = parentUI:WaitForChild("ButtonRemoter")
+	local Box = parentUI:WaitForChild("Box")
+
 	local remotes = {}
 	local db = false
-	
 	local scripts = ""
-	
-	-- Safe fire wrapper with success/fail tracking
+
 	local function safeFire(remote)
 		local ok = pcall(function()
 			if remote:IsA("RemoteEvent") then
@@ -127,24 +123,24 @@ local function JPZV_fake_script() -- Main.LocalScript
 		end)
 		return ok
 	end
-	
+
 	-- Build buttons
 	for i, v in pairs(rep:GetDescendants()) do
 		if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then
 			table.insert(remotes, v)
-	
 			local clone = BTN:Clone()
 			clone.Parent = Scrolling
+			clone.Visible = true
 			clone.Text = i .. ". " .. v.Name
-	
+
 			clone.MouseEnter:Connect(function()
 				clone.Text = v:GetFullName()
 			end)
-	
+
 			clone.MouseLeave:Connect(function()
 				clone.Text = i .. ". " .. v.Name
 			end)
-	
+
 			clone.MouseButton1Click:Connect(function()
 				safeFire(v)
 				clone.Text = "[FIRED] " .. v.Name
@@ -153,62 +149,42 @@ local function JPZV_fake_script() -- Main.LocalScript
 			end)
 		end
 	end
-	
+
 	RemoteCountLabel.Text = ("Remotes: %d"):format(#remotes)
-	
-	-- Fire all button logic
+
 	FireAllButton.MouseButton1Click:Connect(function()
 		if db then return end
 		db = true
-	
+
 		local fires, success, fail = 0, 0, 0
 		local alreadyfires = {}
-	
+
 		for i, remote in ipairs(remotes) do
-			if table.find(alreadyfires, remote.Name) then
-				continue
-			end
+			if table.find(alreadyfires, remote.Name) then continue end
 			table.insert(alreadyfires, remote.Name)
 			fires += 1
 			FireAllButton.Text = ("Firing [%d/%d]"):format(fires, #remotes)
-	
+
 			if safeFire(remote) then
 				success += 1
 			else
 				fail += 1
 			end
-	
-			task.wait(i/5)
+
+			task.wait(i / 5)
 		end
-	
+
 		table.clear(alreadyfires)
 		FireAllButton.Text = ("Done ✅ [%d success / %d fail]"):format(success, fail)
 		task.wait(1.5)
 		FireAllButton.Text = "Fires All"
-	
+
 		db = false
 	end)
-	
-	
-	script.Parent.Box.FocusLost:Connect(function(ent)
-		if ent then
-			scripts = script.Parent.Box.Tex
-		else
-			scripts = script.Parent.Box.Tex
+
+	Box.FocusLost:Connect(function(enterPressed)
+		if enterPressed then
+			scripts = Box.Text
 		end
 	end)
-end
-coroutine.wrap(JPZV_fake_script)()
-
-ButtonRemoter.Name = "ButtonRemoter"
-ButtonRemoter.Parent = Main.LocalScript
-ButtonRemoter.BackgroundColor3 = Color3.fromRGB(70, 77, 94)
-ButtonRemoter.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ButtonRemoter.BorderSizePixel = 0
-ButtonRemoter.Size = UDim2.new(0.940280676, 0, 0.0537913814, 0)
-ButtonRemoter.Font = Enum.Font.SourceSansBold
-ButtonRemoter.Text = "Oldest"
-ButtonRemoter.TextColor3 = Color3.fromRGB(255, 255, 255)
-ButtonRemoter.TextScaled = true
-ButtonRemoter.TextSize = 14.000
-ButtonRemoter.TextWrapped = true
+]]
