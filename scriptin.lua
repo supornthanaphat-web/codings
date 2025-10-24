@@ -99,12 +99,6 @@ ButtonRemoter.TextScaled = true
 ButtonRemoter.TextWrapped = true
 ButtonRemoter.Visible = false -- hidden template for clone
 
--- LocalScript:
-LocalScript.Parent = Main
-
--- Logic:
-LocalScript.Name = "GuiLogic"
-
 local rep = game:GetService("ReplicatedStorage")
 
 local parentUI = Main
