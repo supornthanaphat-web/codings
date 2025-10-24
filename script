@@ -35,7 +35,7 @@ Main.Position = UDim2.new(0.350800812, 0, 0.274741083, 0)
 Main.Size = UDim2.new(0.297701925, 0, 0.450230151, 0)
 
 ButtonRemoter.Name = "ButtonRemoter"
-ButtonRemoter.Parent = game.StarterGui.MainGui.Main.LocalScript
+ButtonRemoter.Parent = Main.LocalScript
 ButtonRemoter.BackgroundColor3 = Color3.fromRGB(70, 77, 94)
 ButtonRemoter.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ButtonRemoter.BorderSizePixel = 0
@@ -93,7 +93,7 @@ Frame.Position = UDim2.new(1.02597404, 0, 0, 0)
 Frame.Size = UDim2.new(0.640084982, 0, 1, 0)
 
 Console.Name = "Console"
-Console.Parent = game.StarterGui.MainGui.Main.Frame.LocalScript
+Console.Parent = Main.Frame.LocalScript
 Console.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Console.BackgroundTransparency = 1.000
 Console.BorderColor3 = Color3.fromRGB(0, 0, 0)
