@@ -80,7 +80,7 @@ Frame.Position = UDim2.new(1.02597404, 0, 0, 0)
 Frame.Size = UDim2.new(0.640084982, 0, 1, 0)
 
 Console.Name = "Console"
-Console.Parent = Main.Frame.LocalScript
+Console.Parent = game.StarterGui.MainGui.Main.Frame.LocalScript
 Console.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Console.BackgroundTransparency = 1.000
 Console.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -163,9 +163,9 @@ ClearLog.TextSize = 14.000
 ClearLog.TextWrapped = true
 
 -- Scripts:
-
+local scripts
 local function PGUVMT_fake_script() -- Main.LocalScript 
-	local script = Instance.new('LocalScript', Main)
+	scripts = Instance.new('LocalScript', Main)
 
 	local rep = game:GetService("ReplicatedStorage")
 	
@@ -273,9 +273,22 @@ local function PGUVMT_fake_script() -- Main.LocalScript
 	end)
 end
 coroutine.wrap(PGUVMT_fake_script)()
-local scripts
+
+ButtonRemoter.Name = "ButtonRemoter"
+ButtonRemoter.Parent = scripts
+ButtonRemoter.BackgroundColor3 = Color3.fromRGB(70, 77, 94)
+ButtonRemoter.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ButtonRemoter.BorderSizePixel = 0
+ButtonRemoter.Size = UDim2.new(0.940280676, 0, 0.0537913814, 0)
+ButtonRemoter.Font = Enum.Font.SourceSansBold
+ButtonRemoter.Text = "Oldest"
+ButtonRemoter.TextColor3 = Color3.fromRGB(255, 255, 255)
+ButtonRemoter.TextScaled = true
+ButtonRemoter.TextSize = 14.000
+ButtonRemoter.TextWrapped = true
+
 local function RKOUTK_fake_script() -- Frame.LocalScript 
-	scripts = Instance.new('LocalScript', Frame)
+	local script = Instance.new('LocalScript', Frame)
 
 	local logservice = game:GetService("LogService")
 	
@@ -343,16 +356,3 @@ local function RKOUTK_fake_script() -- Frame.LocalScript
 	
 end
 coroutine.wrap(RKOUTK_fake_script)()
-
-ButtonRemoter.Name = "ButtonRemoter"
-ButtonRemoter.Parent = scripts
-ButtonRemoter.BackgroundColor3 = Color3.fromRGB(70, 77, 94)
-ButtonRemoter.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ButtonRemoter.BorderSizePixel = 0
-ButtonRemoter.Size = UDim2.new(0.940280676, 0, 0.0537913814, 0)
-ButtonRemoter.Font = Enum.Font.SourceSansBold
-ButtonRemoter.Text = "Oldest"
-ButtonRemoter.TextColor3 = Color3.fromRGB(255, 255, 255)
-ButtonRemoter.TextScaled = true
-ButtonRemoter.TextSize = 14.000
-ButtonRemoter.TextWrapped = true
