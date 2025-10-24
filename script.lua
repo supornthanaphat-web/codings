@@ -34,19 +34,6 @@ Main.BorderSizePixel = 0
 Main.Position = UDim2.new(0.350800812, 0, 0.274741083, 0)
 Main.Size = UDim2.new(0.297701925, 0, 0.450230151, 0)
 
-ButtonRemoter.Name = "ButtonRemoter"
-ButtonRemoter.Parent = Main.LocalScript
-ButtonRemoter.BackgroundColor3 = Color3.fromRGB(70, 77, 94)
-ButtonRemoter.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ButtonRemoter.BorderSizePixel = 0
-ButtonRemoter.Size = UDim2.new(0.940280676, 0, 0.0537913814, 0)
-ButtonRemoter.Font = Enum.Font.SourceSansBold
-ButtonRemoter.Text = "Oldest"
-ButtonRemoter.TextColor3 = Color3.fromRGB(255, 255, 255)
-ButtonRemoter.TextScaled = true
-ButtonRemoter.TextSize = 14.000
-ButtonRemoter.TextWrapped = true
-
 RemoteSelected.Name = "RemoteSelected"
 RemoteSelected.Parent = Main
 RemoteSelected.BackgroundColor3 = Color3.fromRGB(92, 101, 124)
@@ -286,8 +273,9 @@ local function PGUVMT_fake_script() -- Main.LocalScript
 	end)
 end
 coroutine.wrap(PGUVMT_fake_script)()
+local scripts
 local function RKOUTK_fake_script() -- Frame.LocalScript 
-	local script = Instance.new('LocalScript', Frame)
+	scripts = Instance.new('LocalScript', Frame)
 
 	local logservice = game:GetService("LogService")
 	
@@ -355,3 +343,16 @@ local function RKOUTK_fake_script() -- Frame.LocalScript
 	
 end
 coroutine.wrap(RKOUTK_fake_script)()
+
+ButtonRemoter.Name = "ButtonRemoter"
+ButtonRemoter.Parent = scripts
+ButtonRemoter.BackgroundColor3 = Color3.fromRGB(70, 77, 94)
+ButtonRemoter.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ButtonRemoter.BorderSizePixel = 0
+ButtonRemoter.Size = UDim2.new(0.940280676, 0, 0.0537913814, 0)
+ButtonRemoter.Font = Enum.Font.SourceSansBold
+ButtonRemoter.Text = "Oldest"
+ButtonRemoter.TextColor3 = Color3.fromRGB(255, 255, 255)
+ButtonRemoter.TextScaled = true
+ButtonRemoter.TextSize = 14.000
+ButtonRemoter.TextWrapped = true
